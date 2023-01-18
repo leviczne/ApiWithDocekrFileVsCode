@@ -3,10 +3,24 @@
 version: '3.4'
 
 services:
+ 
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "#levi123456"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1470:1433"
   sistemadecadastroapi:
     image: sistemadecadastroapi
     build:
       context: .
       dockerfile: SistemaDeCadastroAPI/Dockerfile
     ports:
-      - 8000:8000
+      - 8089:5226
+    restart: always
+    environment:
+       - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - sqlserver
