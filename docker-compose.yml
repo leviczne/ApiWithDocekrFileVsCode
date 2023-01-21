@@ -12,6 +12,8 @@ services:
       MSSQL_PID: "Developer"
     ports:
       - "1470:1433"
+    volumes:
+      - db-volume:/var/lib/mysql
   sistemadecadastroapi:
     image: sistemadecadastroapi
     build:
@@ -24,3 +26,5 @@ services:
        - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
       - sqlserver
+volumes:
+  db-volume:
